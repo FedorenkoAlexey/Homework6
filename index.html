@@ -4,23 +4,31 @@
     <meta charset="UTF-8" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css" />
-    <script src="atm-test.js"></script>
+
     <script src="atm.js"></script>
   </head>
   <body>
     <div class="atm">
-      <div class="left">
-        <span id="button"><a href="">Button1</a></span>
-        <span id="button"><a href="">Button2</a></span>
-        <span id="button"><a href="">Button3</a></span>
+      <div class="left" id="left">
+        <span id="button" id="but1"><a onclick="card.addMoney()">AddMoney</a></span>
+        <span id="button" id="but2"><a onclick="min()">DrawCash</a></span>
+        <span id="button" id="but3"><a onclick="atm.withdrawCash(card, 200)">Balanse</a></span>
       </div>
       <div class="monitor">
         <div class="left-screen">
-          <span> Action 1</span>
-          <span> Action 2</span>
-          <span> Action 3</span>
+          <span> to card</span>
+          <span> from card</span>
+          <span> 200 $</span>
         </div>
-        <div id="screen" class="screen">test</div>
+        <div class="wrap">
+          <div id="screen" class="screen">
+            test</br>
+
+          </div>
+          <div class="input"><input type="text" id="atm-cash" placeholder="Enter: sum, [1000, 500, 200, 100, 50]"/>
+          </div>
+        </div>
+
         <div class="right-screen">
           <span> Action 4</span>
           <span> Action 5</span>
@@ -29,15 +37,18 @@
       </div>
       <div class="right">
         <span id="button"><a href="">Button4</a></span>
-        <span id="button"><a href="">Button5</a></span>
+        <span id="button" id="but5"
+          ><a href="" onclick="card.showBalance()">CardBal</a></span
+        >
         <span id="button" id="but6"
-          ><a href="" onclick="atm.showBalance()">Balance</a></span
+          ><a onclick="atm.showBalance()">Balance</a></span
         >
       </div>
     </div>
     <script type="text/javascript">
-      // let atm = new Atm();
-      // let card = new Card();
+
+
     </script>
+    <script src="atm-test.js"></script>
   </body>
 </html>
