@@ -1,26 +1,38 @@
 class Atm {
   constructor() {
-    this.cashAtm = [100, 200, 500, 100, 1000, 200, 50];
-    this.sumAtm = 2150; // сумма
-    // this.drawCash = 0; // сумма выдана на руки.
+    this.cashAtm = [];
+    this.sumAtm = 0;
   }
   addMoney(sum, arrBanknote) {
+    let but5 = document.getElementById("screen");
     let tempSum = 0;
     arrBanknote.forEach(function(item) {
-      tempSum += item;
+      if (
+        item != 50 &&
+        item != 100 &&
+        item != 200 &&
+        item != 500 &&
+        item != 1000
+      )
+        return (but5.innerHTML = "Check summ and banknotes");
+      else tempSum += item;
     });
     if (tempSum == sum) {
       this.cashAtm = this.cashAtm.concat(arrBanknote);
       this.sumAtm += sum;
-    } else return console.log("Error!");
+      but5.innerHTML =
+        "Added to ATM: " + sum + " [ " + arrBanknote.join(" ") + " ] ";
+    } else return (but5.innerHTML = "Check summ and banknotes");
+    form.reset();
   }
   showBalance() {
     // console.log(this.cashAtm);
     let but6 = document.getElementById("screen");
     return (but6.innerHTML =
-      "Balance ATM: " + this.sumAtm + " [" + this.cashAtm + "] ");
+      "Balance ATM: " + this.sumAtm + " [" + this.cashAtm.join(" ") + "] ");
   }
   withdrawCash(card, sum) {
+    let but2 = document.getElementById("screen");
     let drawCash = 0;
     let banknotes = [];
     let newArr = [];
@@ -31,8 +43,10 @@ class Atm {
         return a - b;
       })
       .reverse();
-    if (card.sumCard < sum) return console.log("Not enough money in Card");
-    if (sum > this.sumAtm || sum < 0) return console.log("Not enough money");
+    if (card.sumCard < sum)
+      return (but2.innerHTML = "Not enough money in Card");
+    if (sum > this.sumAtm) return (but2.innerHTML = "Not enough money in ATM");
+    else if (sum <= 0) but2.innerHTML = "Enter positive number";
     for (let i = 0; i <= sortArr.length; i++) {
       if (newSum >= sortArr[i]) {
         drawCash += sortArr[i];
@@ -46,41 +60,42 @@ class Atm {
             if (sortArr[i] != 0) newArr.push(sortArr[i]);
           }
           this.cashAtm = newArr;
-
-          return console.log("Good", drawCash, banknotes);
+          form.reset();
+          return (but2.innerHTML =
+            "Great, here is you money: " +
+            drawCash +
+            " [ " +
+            banknotes.join(" ") +
+            " ] ");
         }
       } else if (sum < sortArr[i]) continue;
     }
-    if (drawCash < sum) return console.log("Choose another suum");
+    if (drawCash < sum) {
+      let res = sum - drawCash;
+      return (but2.innerHTML =
+        "There is no " + res + " in ATM. Choose another summ");
+    }
   }
 }
 
 class Card {
   constructor() {
-    this.sumCard = 1000;
+    this.sumCard = 0;
   }
 
   addMoney(sum) {
-    if (sum > 0) this.sumCard += sum;
+    let but1 = document.getElementById("screen");
+    but1.innerHTML = "You added to card: " + sum;
+    form.reset();
 
-    let sum1 = document.getElementById("atm-cash").value;
-    sum1 = parseInt(sum1);
-    document.getElementById("screen").innerHTML = sum1;
+    if (sum > 0) this.sumCard += sum;
+    else but1.innerHTML = "Enter positive number";
   }
   showBalance() {
-    let but5 = document.getElementById("screen");
-    return (but5.innerHTML = "Balance Card: " + this.sumCard);
+    let but3 = document.getElementById("screen");
+    return (but3.innerHTML = "Balance Card: " + this.sumCard);
   }
 }
 
 let atm = new Atm();
 let card = new Card();
-
-// card.addMoney(1000);
-
-// atm.addMoney(950, [100, 50, 200, 500, 100]);
-// atm.showBalance(); // наличие денег в АТМ
-// atm.withdrawCash(card, 800); // снятие денег с АТМ и карты
-
-// card.addMoney()  // деньги на карту
-// card.showBalance()  // баланс карты

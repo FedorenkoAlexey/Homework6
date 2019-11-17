@@ -4,7 +4,7 @@ body {
 a {
   position: relative;
   display: inline-block;
-  width: 50px;
+  width: 60px;
   font-size: 90%;
   font-weight: 700;
   color: #d1d1d9;
@@ -30,7 +30,7 @@ a:active {
   flex-direction: row;
   align-items: center;
   margin: 50px 0 0 50px;
-  width: 700px;
+  width: 720px;
   height: 400px;
   position: relative;
   background-color: #4e4f54;
@@ -40,7 +40,7 @@ a:active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100px;
+  width: 110px;
   height: 350px;
 }
 .atm .left span {
@@ -79,7 +79,15 @@ a:active {
   background-color: #356adb;
 }
 .atm .monitor .wrap .screen {
-  height: 200px;
+  height: 175px;
+}
+.atm .monitor .wrap #atm-bills {
+  width: 300px;
+  height: 25px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: cyan;
+  background-color: #4775da;
 }
 .atm .monitor .wrap #atm-cash {
   width: 300px;
@@ -104,7 +112,7 @@ a:active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100px;
+  width: 110px;
   height: 350px;
 }
 .atm .right span {
