@@ -81,20 +81,24 @@ a:active {
 .atm .monitor .wrap .screen {
   height: 175px;
 }
+.atm .monitor .wrap ::placeholder {
+  color: midnightblue;
+  opacity: 0.7;
+}
 .atm .monitor .wrap #atm-bills {
   width: 300px;
   height: 25px;
   margin-bottom: 10px;
   font-size: 14px;
   color: cyan;
-  background-color: #4775da;
+  background-color: #7c9de2;
 }
 .atm .monitor .wrap #atm-cash {
   width: 300px;
   height: 25px;
   font-size: 14px;
   color: cyan;
-  background-color: #4775da;
+  background-color: #7c9de2;
 }
 .atm .monitor .right-screen {
   display: flex;

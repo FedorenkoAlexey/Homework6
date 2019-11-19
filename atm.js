@@ -3,69 +3,97 @@ class Atm {
     this.cashAtm = [];
     this.sumAtm = 0;
   }
+  reset() {
+    const but4 = document.getElementById("form").reset();
+  }
+  addAtm() {
+    let sum1 = parseInt(document.getElementById("atm-cash").value);
+    let arr1 = document
+      .getElementById("atm-bills")
+      .value.split(",")
+      .map(Number);
+    return this.addMoney(sum1, arr1);
+  }
+
+  drawMoney(card) {
+    let card1 = card;
+    let sum1 = parseInt(document.getElementById("atm-cash").value);
+    return this.withdrawCash(card1, sum1);
+  }
+
   addMoney(sum, arrBanknote) {
-    let but5 = document.getElementById("screen");
+    const but5 = document.getElementById("screen");
     let tempSum = 0;
-    arrBanknote.forEach(function(item) {
+    let arrPrint = arrBanknote.join(" ");
+    arrBanknote.forEach(item => {
       if (
-        item != 50 &&
-        item != 100 &&
-        item != 200 &&
-        item != 500 &&
-        item != 1000
-      )
-        return (but5.innerHTML = "Check summ and banknotes");
-      else tempSum += item;
+        item !== 50 &&
+        item !== 100 &&
+        item !== 200 &&
+        item !== 500 &&
+        item !== 1000
+      ) {
+        return (but5.innerHTML = "Check summ and banknotes.");
+      } else tempSum += item;
     });
-    if (tempSum == sum) {
+    if (tempSum === sum) {
       this.cashAtm = this.cashAtm.concat(arrBanknote);
       this.sumAtm += sum;
-      but5.innerHTML =
-        "Added to ATM: " + sum + " [ " + arrBanknote.join(" ") + " ] ";
-    } else return (but5.innerHTML = "Check summ and banknotes");
-    form.reset();
+      but5.innerHTML = "Added to ATM: " + sum + " [ " + arrPrint + " ] ";
+    } else {
+      return (but5.innerHTML = "Check summ and banknotes");
+    }
+    this.reset();
   }
   showBalance() {
-    // console.log(this.cashAtm);
-    let but6 = document.getElementById("screen");
+    let printCashAtm = this.cashAtm.join(" ");
+    const but6 = document.getElementById("screen");
     return (but6.innerHTML =
-      "Balance ATM: " + this.sumAtm + " [" + this.cashAtm.join(" ") + "] ");
+      "Balance ATM: " + this.sumAtm + " [" + printCashAtm + "] ");
   }
   withdrawCash(card, sum) {
-    let but2 = document.getElementById("screen");
+    const but2 = document.getElementById("screen");
     let drawCash = 0;
     let banknotes = [];
+    let printBanknotes = "";
     let newArr = [];
     let newSum = sum;
     let sortArr = this.cashAtm
       .slice()
-      .sort(function(a, b) {
-        return a - b;
-      })
+      .sort((a, b) => a - b)
       .reverse();
-    if (card.sumCard < sum)
+
+    if (card.sumCard < sum) {
       return (but2.innerHTML = "Not enough money in Card");
-    if (sum > this.sumAtm) return (but2.innerHTML = "Not enough money in ATM");
-    else if (sum <= 0) but2.innerHTML = "Enter positive number";
+    }
+    if (sum > this.sumAtm) {
+      return (but2.innerHTML = "Not enough money in ATM");
+    } else if (sum <= 0) {
+      but2.innerHTML = "Enter positive number";
+    }
     for (let i = 0; i <= sortArr.length; i++) {
       if (newSum >= sortArr[i]) {
         drawCash += sortArr[i];
         newSum -= sortArr[i];
         banknotes.push(sortArr[i]);
         sortArr.splice(i, 1, 0);
-        if (drawCash == sum) {
+
+        if (drawCash === sum) {
           this.sumAtm -= drawCash;
           card.sumCard -= sum;
           for (let i = 0; i <= sortArr.length; i++) {
-            if (sortArr[i] != 0) newArr.push(sortArr[i]);
+            if (sortArr[i] !== 0) {
+              newArr.push(sortArr[i]);
+            }
           }
           this.cashAtm = newArr;
-          form.reset();
+          this.reset();
+          printBanknotes = banknotes.join(" ");
           return (but2.innerHTML =
             "Great, here is you money: " +
             drawCash +
             " [ " +
-            banknotes.join(" ") +
+            printBanknotes +
             " ] ");
         }
       } else if (sum < sortArr[i]) continue;
@@ -82,17 +110,24 @@ class Card {
   constructor() {
     this.sumCard = 0;
   }
+  addToCard() {
+    const sum1 = parseInt(document.getElementById("atm-cash").value);
+    return this.addMoney(sum1);
+  }
 
   addMoney(sum) {
-    let but1 = document.getElementById("screen");
+    const but1 = document.getElementById("screen");
     but1.innerHTML = "You added to card: " + sum;
-    form.reset();
+    document.getElementById("form").reset();
 
-    if (sum > 0) this.sumCard += sum;
-    else but1.innerHTML = "Enter positive number";
+    if (sum > 0) {
+      this.sumCard += sum;
+    } else {
+      but1.innerHTML = "Enter positive number";
+    }
   }
   showBalance() {
-    let but3 = document.getElementById("screen");
+    const but3 = document.getElementById("screen");
     return (but3.innerHTML = "Balance Card: " + this.sumCard);
   }
 }
